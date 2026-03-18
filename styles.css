@@ -1,0 +1,64 @@
+/* --- Floating Mic Button --- */
+#yvc-mic-btn {
+  position: fixed;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  z-index: 9999;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #282828;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  opacity: 0.8;
+}
+
+#yvc-mic-btn:hover {
+  opacity: 1;
+  background: #383838;
+}
+
+#yvc-mic-btn.yvc-mic-active {
+  background: #c0392b;
+  color: #fff;
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(192, 57, 43, 0.6);
+  animation: yvc-pulse 1.5s infinite;
+}
+
+@keyframes yvc-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(192, 57, 43, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(192, 57, 43, 0.8); }
+}
+
+/* --- Toast Notification --- */
+#yvc-toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Segoe UI', 'Meiryo', sans-serif;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  max-width: 400px;
+  text-align: center;
+}
+
+#yvc-toast.yvc-toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
