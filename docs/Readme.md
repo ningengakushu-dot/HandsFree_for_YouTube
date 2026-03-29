@@ -80,6 +80,12 @@ Chrome Web Store のページから「Chrome に追加」をクリックする�
 - **音声認識エンジン**: Chrome 内蔵の Web Speech API を使用します。音声データは開発者には送信されません。
 - スピーカーから出力される動画音をマイクが誤認識し、予期しない操作が発生する場合があります。安定した操作のために、**イヤホンやヘッドセットの使用を推奨**します。
 
+## 開発支援
+
+このアプリを気に入っていただけた場合は、開発の支援をいただけると嬉しいです。
+
+[![GitHub Sponsors](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=github)](https://github.com/sponsors/ningengakushu-dot)
+
 ## 利用規約
 
 - 本拡張機能は個人・商用を問わず無償で使用できます。
