@@ -70,7 +70,7 @@ Chrome Web Store のページから「Chrome に追加」をクリックする�
 - **Web Speech API** (`webkitSpeechRecognition`) — Chrome内蔵の音声認識エンジン
 - **バニラJS** — フレームワーク・外部ライブラリ不使用
 
-## 注意事項および動作環境
+## 注意事項・推奨環境
 
 - **対応ブラウザ**: Google Chrome（PC版）
 - **対応言語**: 日本語
