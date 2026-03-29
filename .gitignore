@@ -1,0 +1,14 @@
+# Chrome Web Store 提出用ZIPファイル
+*.zip
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.code-workspace
+
+# Chrome Web Store 申請用素材（リポジトリ不要）
+images/
+docs/CWS_DASHBOARD_INFO.md
+docs/Readme_WebStore.txt
