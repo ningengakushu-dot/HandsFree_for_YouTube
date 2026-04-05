@@ -247,13 +247,13 @@
 
     recognition = new SpeechRecognition();
     recognition.lang = 'ja-JP';
-    recognition.continuous = true;
+    // Chromeのハングアップ対策として false に変更（ワンショット認識の連続再起動モード）
+    recognition.continuous = false;
     recognition.interimResults = false;
 
     recognition.onstart = () => {
       isListening = true;
       updateMicButton();
-      showToast('🎙 音声認識ON');
     };
 
     recognition.onresult = (event) => {
@@ -277,18 +277,25 @@
 
     recognition.onend = () => {
       // isListening中ならブラウザが勝手に止めたので再開
+      // InvalidStateError回避のためsetTimeoutで200msのインターバルを挟む
       if (isListening) {
-        try {
-          recognition.start();
-        } catch {
-          isListening = false;
-          restoreFromMute();
-          updateMicButton();
-        }
+        setTimeout(() => {
+          if (isListening) {
+            try {
+              recognition.start();
+            } catch (e) {
+              isListening = false;
+              restoreFromMute();
+              updateMicButton();
+              console.error('SpeechRecognitionの再起動に失敗しました', e);
+            }
+          }
+        }, 200);
       }
     };
 
     try {
+      showToast('🎙 音声認識ON');
       recognition.start();
     } catch {
       restoreFromMute();

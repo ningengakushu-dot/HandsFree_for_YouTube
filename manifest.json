@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "HandsFree for YouTube",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YouTubeをハンズフリーで。音声コマンドで再生・停止・速度変更・動画操作が可能なChrome拡張機能",
   "permissions": [],
   "host_permissions": [
