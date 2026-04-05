@@ -329,11 +329,63 @@
     micBtn = document.createElement('button');
     micBtn.id = 'yvc-mic-btn';
     micBtn.title = '音声認識 ON/OFF';
-    micBtn.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+    micBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
       <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
       <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
     </svg>`;
-    micBtn.addEventListener('click', toggleRecognition);
+
+    // 保存済みの位置を復元、なければデフォルト（右端中央）
+    const saved = JSON.parse(localStorage.getItem('yvc-mic-pos') || 'null');
+    if (saved) {
+      micBtn.style.top = saved.top;
+      micBtn.style.left = saved.left;
+      micBtn.style.right = 'auto';
+      micBtn.style.transform = 'none';
+    }
+
+    // ドラッグ実装
+    let dragStartX, dragStartY, btnStartX, btnStartY, dragged;
+    micBtn.addEventListener('mousedown', (e) => {
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      const rect = micBtn.getBoundingClientRect();
+      btnStartX = rect.left;
+      btnStartY = rect.top;
+      dragged = false;
+
+      const onMouseMove = (e) => {
+        const dx = e.clientX - dragStartX;
+        const dy = e.clientY - dragStartY;
+        if (!dragged && Math.hypot(dx, dy) < 4) return;
+        dragged = true;
+
+        const x = Math.max(0, Math.min(window.innerWidth - micBtn.offsetWidth, btnStartX + dx));
+        const y = Math.max(0, Math.min(window.innerHeight - micBtn.offsetHeight, btnStartY + dy));
+        micBtn.style.left = `${x}px`;
+        micBtn.style.top = `${y}px`;
+        micBtn.style.right = 'auto';
+        micBtn.style.transform = 'none';
+      };
+
+      const onMouseUp = () => {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        if (dragged) {
+          localStorage.setItem('yvc-mic-pos', JSON.stringify({
+            top: micBtn.style.top,
+            left: micBtn.style.left,
+          }));
+        }
+      };
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    micBtn.addEventListener('click', () => {
+      if (!dragged) toggleRecognition();
+    });
+
     document.body.appendChild(micBtn);
   }
 
